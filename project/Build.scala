@@ -26,7 +26,7 @@ object TemplateBuild extends Build {
 
   val akkaDeps = testDeps ++ Seq(akkaActor, akkaStreams)
 
-  val akkaHttpDeps = akkaDeps ++ Seq(akkaHttp, akkaHttpCore, akkaHttpTestkit, akkaHttpJson)
+  val akkaHttpDeps = akkaDeps ++ Seq(akkaHttp, akkaHttpCore, akkaHttpTestkit, akkaHttpJson, logback, scalaLogging, logstashLogback)
 
   lazy val microservice = Project(
     "microservice-template",

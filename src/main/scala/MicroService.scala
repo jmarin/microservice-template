@@ -13,6 +13,8 @@ import com.typesafe.config.ConfigFactory
 import akka.http.Http
 import akka.http.marshalling.ToResponseMarshallable
 import akka.http.server.Directives._
+import com.typesafe.scalalogging.Logger
+import org.slf4j.LoggerFactory
 
 case class Status(status: String, time: String)
 
@@ -28,12 +30,15 @@ trait Service extends JsonProtocol {
   def config: Config
   val logger: LoggingAdapter
 
+  lazy val log = Logger(LoggerFactory.getLogger("microservice"))
+
   val routes = {
     path("status") {
       get {
         compressResponseIfRequested() {
           complete {
             val now = Calendar.getInstance().getTime()
+            log.info(now.toString)
             ToResponseMarshallable(Status("OK", now.toString))
           }
         }
