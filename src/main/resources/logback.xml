@@ -2,7 +2,7 @@
 <configuration>
   <appender name="stash" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
       <!-- remoteHost and port are optional (default values shown) -->
-      <remoteHost>127.0.0.1</remoteHost>
+      <remoteHost>${LOGSTASH_HOST}</remoteHost>
       <port>9998</port>
 
       <!-- encoder is required -->
