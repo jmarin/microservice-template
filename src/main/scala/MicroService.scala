@@ -38,7 +38,7 @@ trait Service extends JsonProtocol {
         compressResponseIfRequested() {
           complete {
             val now = Calendar.getInstance().getTime()
-            log.info(now.toString)
+            log.info("Microservice - " + now.toString)
             ToResponseMarshallable(Status("OK", now.toString))
           }
         }
