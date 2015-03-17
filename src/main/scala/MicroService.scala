@@ -1,5 +1,6 @@
 package template.microservice
 
+import java.net.InetAddress
 import java.util.Calendar
 import scala.concurrent.ExecutionContextExecutor
 import scala.util.Properties
@@ -16,10 +17,10 @@ import akka.http.server.Directives._
 import com.typesafe.scalalogging.Logger
 import org.slf4j.LoggerFactory
 
-case class Status(status: String, time: String)
+case class Status(status: String, time: String, hostname: String)
 
 trait JsonProtocol extends DefaultJsonProtocol {
-  implicit val statusFormat = jsonFormat2(Status.apply)
+  implicit val statusFormat = jsonFormat3(Status.apply)
 }
 
 trait Service extends JsonProtocol {
@@ -37,9 +38,10 @@ trait Service extends JsonProtocol {
       get {
         compressResponseIfRequested() {
           complete {
+            val hostname = InetAddress.getLocalHost().getHostName()
             val now = Calendar.getInstance().getTime()
-            log.info("Microservice - " + now.toString)
-            ToResponseMarshallable(Status("OK", now.toString))
+            log.info(s"Microservice running on ${hostname} - ${now}")
+            ToResponseMarshallable(Status("OK", now.toString, hostname))
           }
         }
       }
