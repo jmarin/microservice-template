@@ -24,3 +24,4 @@ dockerBaseImage := "dockerfile/java" // Docker image to use as a base for the ap
 
 dockerExposedPorts in Docker := Seq(8080) // Ports to expose from container for Docker container linking
 
+dockerRepository := Some("jmarin")
