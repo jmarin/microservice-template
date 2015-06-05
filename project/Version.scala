@@ -6,6 +6,7 @@ object Version {
   val scalaCheck      = "1.12.1"
   val logback         = "1.1.2"
   val scalaLogging    = "3.1.0"
-  val logstashLogback = "4.2" 
+  val logstashLogback = "4.2"
+  val kamon           = "0.4.0"
 
 }

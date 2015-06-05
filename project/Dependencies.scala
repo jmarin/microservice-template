@@ -23,6 +23,8 @@ object Dependencies {
   val scalaTest       = "org.scalatest"               %% "scalatest"                          % Version.scalaTest   % "test"
   val scalaCheck      = "org.scalacheck"              %% "scalacheck"                         % Version.scalaCheck  % "test"
 
+  val kamonCore       = "io.kamon"                     %% "kamon-core"                         % Version.kamon
+  val kamonStatsd     = "io.kamon"                     %% "kamon-statsd"                       % Version.kamon
 
 }
 

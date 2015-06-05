@@ -2,6 +2,8 @@ package template.microservice
 
 import java.net.InetAddress
 import java.util.Calendar
+import kamon.Kamon
+
 import scala.concurrent.ExecutionContextExecutor
 import scala.util.Properties
 import spray.json.DefaultJsonProtocol
@@ -38,6 +40,8 @@ trait Service extends JsonProtocol {
       get {
         compressResponseIfRequested() {
           complete {
+            val statusCounter = Kamon.metrics.counter("status-counter")
+            statusCounter.increment()
             val hostname = InetAddress.getLocalHost().getHostName()
             val now = Calendar.getInstance().getTime()
             log.info(s"Microservice running on ${hostname} - ${now}")
@@ -50,6 +54,7 @@ trait Service extends JsonProtocol {
 }
 
 object MicroService extends App with Service {
+  Kamon.start()
   override implicit val system = ActorSystem()
   override implicit val executor = system.dispatcher
   override implicit val materializer = ActorFlowMaterializer()
@@ -59,4 +64,8 @@ object MicroService extends App with Service {
 
   Http().bind(interface = config.getString("http.interface"), port = config.getInt("http.port")).startHandlingWith(routes)
 
+  sys.addShutdownHook {
+    system.shutdown()
+    Kamon.shutdown()
+  }
 }
