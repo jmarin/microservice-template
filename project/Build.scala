@@ -28,7 +28,7 @@ object TemplateBuild extends Build {
 
   val akkaHttpDeps = akkaDeps ++ Seq(akkaHttp, akkaHttpCore, akkaHttpTestkit, akkaHttpJson, logback, scalaLogging, logstashLogback)
 
-  val kamon = Seq(kamonCore, kamonStatsd)
+  val kamon = Seq(kamonCore, kamonStatsd, kamonMetrics)
 
   val deps = akkaHttpDeps ++ kamon
 

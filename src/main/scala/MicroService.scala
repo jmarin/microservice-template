@@ -1,26 +1,15 @@
 package template.microservice
 
-import java.net.InetAddress
-import java.util.Calendar
-import api.Service
-import kamon.Kamon
-import model.Status
-import protocol.JsonProtocol
-
-import scala.concurrent.ExecutionContextExecutor
-import scala.util.Properties
-import spray.json.DefaultJsonProtocol
-import akka.http.marshallers.sprayjson.SprayJsonSupport._
+import actor.metrics.{ JVMMetrics, SystemMetricsActor }
 import akka.actor.ActorSystem
-import akka.stream.ActorFlowMaterializer
-import akka.event.{ LoggingAdapter, Logging }
-import com.typesafe.config.Config
-import com.typesafe.config.ConfigFactory
+import akka.event.Logging
 import akka.http.Http
-import akka.http.marshalling.ToResponseMarshallable
-import akka.http.server.Directives._
-import com.typesafe.scalalogging.Logger
-import org.slf4j.LoggerFactory
+import akka.stream.ActorFlowMaterializer
+import api.Service
+import com.typesafe.config.ConfigFactory
+import kamon.Kamon
+import scala.concurrent.duration._
+import scala.language.postfixOps
 
 object MicroService extends App with Service {
   Kamon.start()
@@ -32,6 +21,9 @@ object MicroService extends App with Service {
   override val logger = Logging(system, getClass)
 
   Http().bind(interface = config.getString("http.interface"), port = config.getInt("http.port")).startHandlingWith(routes)
+
+  val systemActor = system.actorOf(SystemMetricsActor.props)
+  system.scheduler.schedule(1000 milliseconds, 1000 milliseconds, systemActor, JVMMetrics)
 
   sys.addShutdownHook {
     system.shutdown()

@@ -15,4 +15,19 @@ trait Metrics {
     println(s"${name} took: ${duration.toMillis}")
     result
   }
+
+  def count[T](name: String, f: => T): T = {
+    val statusCounter = Kamon.metrics.counter(name)
+    statusCounter.increment()
+    val result = f
+    result
+  }
+
+  //  def measure[T](name: String, f: => T): T = {
+  //    val gauge = Kamon.metrics.histogram(name)
+  //    val statusCounter = Kamon.metrics.counter(name)
+  //    statusCounter.increment()
+  //    val result = f
+  //    result
+  //  }
 }

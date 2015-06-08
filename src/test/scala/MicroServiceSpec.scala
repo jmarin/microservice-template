@@ -32,7 +32,7 @@ class MicroServiceSpec extends FlatSpec with MustMatchers with ScalatestRouteTes
     Get("/status") ~> routes ~> check {
       status mustBe OK
       contentType.mediaType mustBe `application/json`
-      val r = responseAs[Status]
+      val r = responseAs[model.Status]
       r.status mustBe "OK"
     }
   }
