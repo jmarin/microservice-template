@@ -1,0 +1,33 @@
+{
+  "id": "microservice-template",
+  "mem": 512,
+  "cpus": 0.1,
+  "instances": 1,
+  "uris": [],
+  "container": {
+    "type": "DOCKER",
+    "image": "registry:5000/microservice-template:{{DOCKER_IMAGE_TAG}}",
+    "network": "BRIDGE",
+    "portMappings": [
+      {
+        "containerPort": 8080,
+        "hostPort": 0,
+        "servicePort": 10004,
+        "protocol": "tcp"
+      }
+    ]
+  },
+  "labels": {
+    "HAPROXY_GROUP": "internal"
+  },
+  "healthChecks": [
+    {
+      "protocol": "HTTP",
+      "portIndex": 0,
+      "path": "/",
+      "gracePeriod": 5,
+      "intervalSeconds": 20,
+      "maxConsecutiveFailures": 3
+    }
+  ]
+}

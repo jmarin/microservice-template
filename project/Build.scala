@@ -2,6 +2,7 @@ import sbt._
 import sbt.Keys._
 import com.typesafe.sbt.SbtScalariform._
 import spray.revolver.RevolverPlugin._
+import sbtassembly.AssemblyPlugin.autoImport._
 
 object BuildSettings {
   val buildOrganization = "cfpb"
@@ -31,7 +32,14 @@ object TemplateBuild extends Build {
   lazy val microservice = Project(
     "microservice-template",
     file("."),
-    settings = buildSettings ++ Revolver.settings ++ Seq(libraryDependencies ++= deps, resolvers ++= repos)
+    settings =
+      buildSettings ++
+        Revolver.settings ++
+        Seq(
+          assemblyJarName in assembly := {s"${name.value}.jar"},
+          libraryDependencies ++= deps,
+          resolvers ++= repos
+        )
   )
 
 }
