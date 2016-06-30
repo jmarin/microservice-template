@@ -6,7 +6,7 @@ import spray.revolver.RevolverPlugin._
 object BuildSettings {
   val buildOrganization = "cfpb"
   val buildVersion      = "0.0.1"
-  val buildScalaVersion = "2.11.6"
+  val buildScalaVersion = "2.11.8"
 
   val buildSettings = Defaults.coreDefaultSettings ++
     scalariformSettings ++
@@ -26,11 +26,9 @@ object TemplateBuild extends Build {
 
   val akkaDeps = testDeps ++ Seq(akkaActor, akkaStreams)
 
-  val akkaHttpDeps = akkaDeps ++ Seq(akkaHttp, akkaHttpCore, akkaHttpTestkit, akkaHttpJson, logback, scalaLogging, logstashLogback)
+  val akkaHttpDeps = akkaDeps ++ Seq(akkaHttp, akkaHttpCore, akkaHttpTestkit, akkaHttpJson, logback, scalaLogging)
 
-  val kamon = Seq(kamonCore, kamonStatsd, kamonMetrics)
-
-  val deps = akkaHttpDeps ++ kamon
+  val deps = akkaHttpDeps
 
   lazy val microservice = Project(
     "microservice-template",
