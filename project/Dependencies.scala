@@ -7,12 +7,9 @@ object Dependencies {
     "Sonatype releases" at "https://oss.sonatype.org/content/repositories/releases"
   )
 
-  val akkaActor       = "com.typesafe.akka"           %% "akka-actor"                         % Version.akka
-  val akkaStreams     = "com.typesafe.akka"           %% "akka-stream-experimental"           % Version.akkaStreams
-  val akkaHttpCore    = "com.typesafe.akka"           %% "akka-http-core-experimental"        % Version.akkaStreams
-  val akkaHttp        = "com.typesafe.akka"           %% "akka-http-experimental"             % Version.akkaStreams
-  val akkaHttpJson    = "com.typesafe.akka"           %% "akka-http-spray-json-experimental"  % Version.akkaStreams
-  val akkaHttpTestkit = "com.typesafe.akka"           %% "akka-http-testkit-experimental"     % Version.akkaStreams % "test"
+  val akkaHttp        = "com.typesafe.akka"           %% "akka-http-experimental"             % Version.akka
+  val akkaHttpJson    = "com.typesafe.akka"           %% "akka-http-spray-json-experimental"  % Version.akka
+  val akkaHttpTestkit = "com.typesafe.akka"           %% "akka-http-testkit"                  % Version.akka % "test"
 
   val logback         = "ch.qos.logback"               % "logback-classic"                    % Version.logback
 

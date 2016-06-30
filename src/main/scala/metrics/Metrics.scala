@@ -9,7 +9,7 @@ trait Metrics {
     val result = f
     val end = Instant.now()
     val duration = Duration.between(start, end)
-    println(s"${name} took: ${duration.toMillis}")
+    println(s"${name} took: ${duration.toMillis}ms")
     result
   }
 
