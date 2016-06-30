@@ -7,12 +7,18 @@
   "container": {
     "type": "DOCKER",
     "image": "registry:5000/microservice-template:{{DOCKER_IMAGE_TAG}}",
+    "parameters": [
+      {
+        "key": "add-host",
+        "value": "dockerhost:172.17.42.1"
+      }
+    ],
     "network": "BRIDGE",
     "portMappings": [
       {
-        "containerPort": 8080,
+        "containerPort": 8081,
         "hostPort": 0,
-        "servicePort": 10080,
+        "servicePort": 10081,
         "protocol": "tcp"
       }
     ]
