@@ -13,6 +13,6 @@ USER daemon
 
 ENTRYPOINT ["java", "-jar", "/opt/microservice-template.jar"]
 
-EXPOSE 8080
+EXPOSE 8082
 
 COPY target/scala-2.11/microservice-template.jar /opt/microservice-template.jar
